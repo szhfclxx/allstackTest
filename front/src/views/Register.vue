@@ -17,7 +17,7 @@ const submit = async () => {
   }
   loading.value = true
   try {
-    const res = await axios.post('/api/login', {
+    const res = await axios.post('/api/register', {
       username: username.value,
       password: password.value,
     })
@@ -27,10 +27,10 @@ const submit = async () => {
       localStorage.setItem('username', name)
       router.push('/')
     } else {
-      errorMsg.value = '登录失败'
+      errorMsg.value = '注册失败'
     }
   } catch (err) {
-    errorMsg.value = err?.response?.data?.message || '登录失败'
+    errorMsg.value = err?.response?.data?.message || '注册失败'
   } finally {
     loading.value = false
   }
@@ -38,8 +38,8 @@ const submit = async () => {
 </script>
 
 <template>
-  <div class="login-wrapper">
-    <h1>登录</h1>
+  <div class="register-wrapper">
+    <h1>注册</h1>
     <form @submit.prevent="submit">
       <div class="form-item">
         <label>用户名</label>
@@ -50,13 +50,12 @@ const submit = async () => {
         <input v-model="password" type="password" placeholder="请输入密码" />
       </div>
       <div class="form-item">
-        <button type="submit" :disabled="loading">{{ loading ? '登录中...' : '登录' }}</button>
+        <button type="submit" :disabled="loading">{{ loading ? '注册中...' : '注册并登录' }}</button>
       </div>
       <p v-if="errorMsg" class="error">{{ errorMsg }}</p>
-      <p class="tip">预置账号：admin / 123456</p>
       <p class="tip">
-        还没有账号？
-        <router-link to="/register">去注册</router-link>
+        已有账号？
+        <router-link to="/login">前往登录</router-link>
       </p>
     </form>
   </div>
@@ -64,7 +63,7 @@ const submit = async () => {
 </template>
 
 <style scoped>
-.login-wrapper { max-width: 360px; margin: 80px auto; padding: 24px; border: 1px solid #e5e5e5; border-radius: 8px; }
+.register-wrapper { max-width: 360px; margin: 80px auto; padding: 24px; border: 1px solid #e5e5e5; border-radius: 8px; }
 .form-item { margin-bottom: 16px; display: flex; flex-direction: column; }
 label { margin-bottom: 6px; font-size: 14px; color: #333; }
 input { height: 36px; padding: 0 10px; border: 1px solid #ddd; border-radius: 4px; }
@@ -73,5 +72,6 @@ button:disabled { opacity: .6; cursor: not-allowed; }
 .error { color: #d93025; font-size: 13px; }
 .tip { color: #666; font-size: 12px; }
 </style>
+
 
 

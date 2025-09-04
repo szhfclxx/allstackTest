@@ -17,6 +17,9 @@ const logout = () => {
     <h2>欢迎 {{ username || '游客' }}</h2>
     <p>这是一个示例首页。你已成功搭建前后端并可登录。</p>
     <div class="actions">
+      <router-link to="/articles">文章列表</router-link>
+      <router-link v-if="username" to="/editor">写文章</router-link>
+      <router-link v-if="username" to="/mine">我的文章</router-link>
       <router-link to="/login">前往登录</router-link>
       <button @click="logout">退出登录</button>
     </div>
